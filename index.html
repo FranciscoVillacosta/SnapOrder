@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos - Restaurante El Buen Sabor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🍔 Restaurante El Buen Sabor</h1>
+    <p>Haz tu pedido y envíalo por WhatsApp</p>
+  </header>
+
+  <main>
+    <section class="menu">
+      <div class="item">
+        <h3>Hamburguesa Clásica</h3>
+        <p>$70</p>
+        <button onclick="agregarPedido('Hamburguesa Clásica', 70)">Agregar</button>
+      </div>
+      <div class="item">
+        <h3>Tacos al Pastor (3 pzas)</h3>
+        <p>$50</p>
+        <button onclick="agregarPedido('Tacos al Pastor', 50)">Agregar</button>
+      </div>
+      <div class="item">
+        <h3>Refresco</h3>
+        <p>$20</p>
+        <button onclick="agregarPedido('Refresco', 20)">Agregar</button>
+      </div>
+    </section>
+
+    <section class="pedido">
+      <h2>🧾 Tu Pedido</h2>
+      <ul id="lista-pedido"></ul>
+      <p id="total"></p>
+      <button id="btn-whatsapp" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
