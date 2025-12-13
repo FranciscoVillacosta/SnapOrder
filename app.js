@@ -32,7 +32,7 @@ window.login = async function () {
     }
 
     localStorage.setItem("rol", snap.data().rol);
-    window.location.href = "prueb.html";
+    window.location.href = "panel.html";
 
   } catch (e) {
     alert("Usuario o contraseña incorrectos.");
