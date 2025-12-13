@@ -2,43 +2,115 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pedidos - Restaurante El Buen Sabor</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Acceso al Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url("24239693_6843484.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      background-color: white;
+    }
+
+    .login-header {
+      background-color: #3802ca;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.3rem;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .login-body {
+      padding: 30px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .btn-login {
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      background-color: #3802ca;
+      border: none;
+    }
+
+    #error {
+      margin-top: 15px;
+      text-align: center;
+      color: #dc3545;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
+
 <body>
-  <header>
-    <h1>🍔 Restaurante El Buen Sabor</h1>
-    <p>Haz tu pedido y envíalo por WhatsApp</p>
-  </header>
 
-  <main>
-    <section class="menu">
-      <div class="item">
-        <h3>Hamburguesa Clásica</h3>
-        <p>$70</p>
-        <button onclick="agregarPedido('Hamburguesa Clásica', 70)">Agregar</button>
+  <!-- CONTENIDO CENTRADO -->
+  <div class="content">
+    <div class="login-card">
+      <div class="login-header">
+        Portal Escolar
       </div>
-      <div class="item">
-        <h3>Tacos al Pastor (3 pzas)</h3>
-        <p>$50</p>
-        <button onclick="agregarPedido('Tacos al Pastor', 50)">Agregar</button>
-      </div>
-      <div class="item">
-        <h3>Refresco</h3>
-        <p>$20</p>
-        <button onclick="agregarPedido('Refresco', 20)">Agregar</button>
-      </div>
-    </section>
 
-    <section class="pedido">
-      <h2>🧾 Tu Pedido</h2>
-      <ul id="lista-pedido"></ul>
-      <p id="total"></p>
-      <button id="btn-whatsapp" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
-    </section>
-  </main>
+      <div class="login-body">
+        <input id="email" type="email" class="form-control mb-3" placeholder="Correo institucional">
+        <input id="password" type="password" class="form-control mb-3" placeholder="Contraseña">
 
-  <script src="script.js"></script>
+        <button class="btn btn-primary w-100 btn-login" onclick="login()">
+          Ingresar
+        </button>
+
+        <div id="error"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="text-light text-decoration-none me-3">Desarrollado por Francisco Villa</a>
+    <a href="#" class="text-light text-decoration-none">2025</a>
+  </footer>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
