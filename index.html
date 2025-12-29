@@ -10,13 +10,12 @@
   <style>
     body {
       min-height: 100vh;
-      background:
-        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+      background: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
         url("13.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-
       display: flex;
       flex-direction: column;
     }
@@ -26,70 +25,81 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px; /* Evita que la tarjeta toque los bordes del cel */
     }
 
     .login-card {
-      width: 100%;
-      max-width: 380px;
+      width: 95%; /* En móviles pequeños ocupará casi todo el ancho */
+      max-width: 350px; /* En PC no pasará de este tamaño */
       border: none;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
       background-color: white;
+      overflow: hidden; /* Mantiene las esquinas redondeadas */
     }
 
+    /* COLOR: Esmeralda Moderno */
     .login-header {
-      background-color: #0273ca;
+      background-color: #10b981; 
       color: white;
-      padding: 20px;
+      padding: 25px 20px;
       text-align: center;
-      font-weight: 600;
-      font-size: 1.3rem;
-      border-radius: 15px 15px 0 0;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
     }
 
     .login-body {
-      padding: 30px;
+      padding: 25px;
     }
 
     .form-control {
-      border-radius: 8px;
-      padding: 12px;
+      border-radius: 6px;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 16px; /* Evita zoom automático en iPhone */
     }
 
+    /* COLOR: Botón Esmeralda Oscuro */
     .btn-login {
-      margin-top: 15px;
+      margin-top: 10px;
       padding: 12px;
       font-size: 1rem;
-      border-radius: 8px;
+      border-radius: 6px;
       font-weight: 600;
-      background-color: #0273ca;
+      background-color: #059669;
       border: none;
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #047857;
     }
 
     #error {
       margin-top: 15px;
       text-align: center;
       color: #dc3545;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     footer {
-      background-color:  rgba(88, 88, 88, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       color: #ffffff;
       text-align: center;
-      padding: 10px 0;
-      font-size: 0.85rem;
+      padding: 15px 0;
+      font-size: 0.8rem;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- CONTENIDO CENTRADO -->
   <div class="content">
     <div class="login-card">
       <div class="login-header">
-        Portal Escolar
+        PORTAL ESCOLAR
       </div>
 
       <div class="login-body">
@@ -97,7 +107,7 @@
         <input id="password" type="password" class="form-control mb-3" placeholder="Contraseña">
 
         <button class="btn btn-primary w-100 btn-login" onclick="login()">
-          Ingresar
+          INGRESAR
         </button>
 
         <div id="error"></div>
@@ -105,10 +115,10 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <a href="https://www.youtube.com/@FranciscoVillaC" class="text-light text-decoration-none me-3">Desarrollado por Francisco Villa</a>
-    <a href="#" class="text-light text-decoration-none">2025</a>
+    <span class="opacity-50">|</span>
+    <span class="ms-3">2025</span>
   </footer>
 
   <script type="module" src="app.js"></script>
