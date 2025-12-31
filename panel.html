@@ -2,128 +2,132 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Subir Calificaciones</title>
+  <title>Panel del Docente</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f5f6fa; }
-    h2 { text-align: center; margin-bottom: 2rem; color: #2f3640; }
-    .card { border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.2s; max-width: 900px; margin: auto; }
-    .card:hover { transform: translateY(-5px); }
-    .btn-primary { width: 100%; }
-    .mensaje { font-size: 0.9rem; }
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --bg-light: #f3f4f6;
+      --text-dark: #1f2937;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Sidebar Responsiva */
+    .sidebar {
+      background-color: var(--text-dark);
+      color: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .nav-link {
+      color: #9ca3af;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    .nav-link.active, .nav-link:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Tarjetas de Calificaciones */
+    .card-grades {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .table thead {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .status-badge {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    /* Responsivo para móviles */
+    @media (max-width: 768px) {
+      .sidebar { min-height: auto; }
+      .table-responsive { font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
 
-<div class="card mt-4">
-  <h5 class="card-header">Calificaciones Cargadas</h5>
-  <div class="table-responsive text-nowrap">
-    <table class="table" id="tablaCalificaciones">
-      <thead class="table-dark">
-        <tr>
-          <th>CveOfi</th>
-          <th>Materia</th>
-          <th>Grupo</th>
-          <th>U1</th>
-          <th>O1</th>
-          <th>U2</th>
-          <th>O2</th>
-          <th>CF</th>
-          <th>OF</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Filas se llenarán dinámicamente -->
-      </tbody>
-    </table>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+      <div class="text-center mb-4">
+        <h5 class="fw-bold">Panel Docente</h5>
+        <hr>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="#">Mis Materias</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Lista de Alumnos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Reportes</a></li>
+        <li class="nav-item mt-5"><a class="nav-link text-danger" href="index.html" onclick="logout()">Cerrar Sesión</a></li>
+      </ul>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Bienvenido!</h1>
+        <button class="btn btn-success" onclick="guardarNotas()">Guardar Cambios</button>
+      </div>
+
+      <div class="card card-grades mb-4">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Alumno</th>
+                  <th>Parcial 1</th>
+                  <th>Parcial 2</th>
+                  <th>Final</th>
+                  <th>Estatus</th>
+                </tr>
+              </thead>
+              <tbody id="listaAlumnos">
+                <tr>
+                  <td>Juan Pérez Rodríguez</td>
+                  <td><input type="number" class="form-control form-control-sm w-75" value="85"></td>
+                  <td><input type="number" class="form-control form-control-sm w-75" value="90"></td>
+                  <td class="fw-bold text-primary">87.5</td>
+                  <td><span class="badge bg-success status-badge">Aprobado</span></td>
+                </tr>
+                <tr>
+                  <td>María García López</td>
+                  <td><input type="number" class="form-control form-control-sm w-75" value="50"></td>
+                  <td><input type="number" class="form-control form-control-sm w-75" value="60"></td>
+                  <td class="fw-bold text-danger">55.0</td>
+                  <td><span class="badge bg-danger status-badge">Reprobado</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
-
-  // Configura Firebase
-  const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_AUTH_DOMAIN",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_STORAGE_BUCKET",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
-  };
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const tabla = document.getElementById("tablaCalificaciones").getElementsByTagName('tbody')[0];
-
-  // Función para agregar fila a Firestore
-  async function guardarCalificacion(fila) {
-    const data = {
-      cve: fila.cells[0].innerText,
-      materia: fila.cells[1].innerText,
-      grupo: fila.cells[2].innerText,
-      u1: fila.cells[3].innerText,
-      o1: fila.cells[4].innerText,
-      u2: fila.cells[5].innerText,
-      o2: fila.cells[6].innerText,
-      cf: fila.cells[7].innerText,
-      of: fila.cells[8].innerText
-    };
-
-    if (fila.dataset.id) {
-      // Actualizar documento existente
-      const docRef = doc(db, "calificaciones", fila.dataset.id);
-      await updateDoc(docRef, data);
-      alert("Calificación actualizada correctamente");
-    } else {
-      // Agregar nuevo documento
-      const docRef = await addDoc(collection(db, "calificaciones"), data);
-      fila.dataset.id = docRef.id;
-      alert("Calificación guardada correctamente");
-    }
+<script>
+  function guardarNotas() {
+    alert("Conectando con Firebase para guardar...");
+    // Aquí irá tu lógica de Firestore para actualizar los documentos
   }
-
-  // Función para crear fila editable
-  function crearFila(data = {}) {
-    const fila = tabla.insertRow();
-    fila.dataset.id = data.id || "";
-
-    ["cve","materia","grupo","u1","o1","u2","o2","cf","of"].forEach(key => {
-      const celda = fila.insertCell();
-      celda.contentEditable = "true";
-      celda.innerText = data[key] || "";
-    });
-
-    const accion = fila.insertCell();
-    const btnGuardar = document.createElement("button");
-    btnGuardar.className = "btn btn-success btn-sm";
-    btnGuardar.innerText = "Guardar";
-    btnGuardar.onclick = () => guardarCalificacion(fila);
-    accion.appendChild(btnGuardar);
-  }
-
-  // Cargar calificaciones desde Firestore
-  async function cargarCalificaciones() {
-    const snapshot = await getDocs(collection(db, "calificaciones"));
-    snapshot.forEach(docSnap => {
-      crearFila({ id: docSnap.id, ...docSnap.data() });
-    });
-  }
-
-  // Inicializar
-  cargarCalificaciones();
-
-  // Agregar fila nueva vacía
-  const btnNueva = document.createElement("button");
-  btnNueva.className = "btn btn-primary mt-3";
-  btnNueva.innerText = "Agregar Nueva Fila";
-  btnNueva.onclick = () => crearFila();
-  document.body.appendChild(btnNueva);
 </script>
 
 </body>
 </html>
-    
